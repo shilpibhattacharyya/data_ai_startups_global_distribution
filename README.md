@@ -42,20 +42,20 @@ plt.show()
 
 
 ![top_10_startup_markets](images/top_10_startup_markets.png)
-Top 10 Startup Markets in Data/AI. We see SaaS is the leader followed by 'Big Data Analytics', 'Predictive Analytics' and 'IoT'.
+##### Top 10 Startup Markets in Data/AI. We see SaaS is the leader followed by 'Big Data Analytics', 'Predictive Analytics' and 'IoT'.
 
 Similarly, I worked to find multiple attributes on these startups, for which you can find the donut charts as below.
 ![num_employees_across_startups](images/num_employees_across_startups.png)
-Distribution of number of employees across startups. 'nan' indicates that number was not specified in the AngelList database for these companies.
+##### Distribution of number of employees across startups. 'nan' indicates that number was not specified in the AngelList database for these companies.
 
 ![10_cities_across_world_for_startups](images/10_cities_across_world_for_startups.png)
-Top 10 cities across the world for DS/AI startups, note 7 are in the USA with the exception of Berlin and London. 'nan' indicates that city was not specified in the AngelList database for these companies.
+##### Top 10 cities across the world for DS/AI startups, note 7 are in the USA with the exception of Berlin and London. 'nan' indicates that city was not specified in the AngelList database for these companies.
 
 ![funds_distribution_across_startups](images/funds_distribution_across_startups.png)
-Distribution of funds raised across the startups. 'nan' indicates that funds raised was not specified in the AngelList database for these companies.
+##### Distribution of funds raised across the startups. 'nan' indicates that funds raised was not specified in the AngelList database for these companies.
 
 ![stages_distribution_startups](images/stages_distribution_startups.png)
-Distribution of the stages of the startup. As we see majority are in 'nan' stage, this indicates that stage was not specified in the AngelList database for these companies. Amongst the valid stages, most startups are in seed stage, which makes sense, as initially startups struggle to get funded.
+##### Distribution of the stages of the startup. As we see majority are in 'nan' stage, this indicates that stage was not specified in the AngelList database for these companies. Amongst the valid stages, most startups are in seed stage, which makes sense, as initially startups struggle to get funded.
 
 Post this, I thought of painting the startup across the globe for prior and post 2013 era. I used the following code for this. I downloaded 'continentsshp31.shp' from IGIS MAP (found by googling). Also, to plot this dataframe on the map, I needed longitude and latitude for each city, which I calculated using geopandas.
 
