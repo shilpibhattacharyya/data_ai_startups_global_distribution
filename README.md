@@ -86,8 +86,9 @@ df_new = df_new.sample(frac=1).reset_index(drop=True)
 df_new.head()
 ```
 The resulting dataframe looks as below.
-
-![resulting_data_frame1](images/resulting_data_frame1.png)![resulting_data_frame2](images/resulting_data_frame2.png)
+                  
+:-------------------------:|:-------------------------:
+![resulting_data_frame1](images/resulting_data_frame1.png)  |  ![resulting_data_frame2](images/resulting_data_frame2.png)
 
 The next step is to get the data in the geometrical format. The way to do this is to convert Pandas DataFrame into a geo-DataFrame, which needs parameters as the original DataFrame, coordinate reference system (CRS), and the geometry of the new DataFrame. In order to format the geometry appropriately, we need to convert the longitude and latitude into Points (we imported Point from shapely above), so let's pass the pandas dataframe and get the latitude and longitude using EPSG:4326 CRS.
 
