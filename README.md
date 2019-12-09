@@ -112,7 +112,7 @@ The resulting plot looks as below. We see that (as on the right side in green) f
 I also plotted another geopandas map to see the global distribution and density of funds raised.
 ![world_map_plot_funds](images/world_map_plot_funds.png)
 
-There is a lot more insights, which can be derived from this dataset. If you are interested in working with this dataset, I have uploaded this on kaggle link here (https://www.kaggle.com/shilpibhattacharyya/dataai-startups-dataset-from-angellist) - kindly request access.
+There is a lot more insights, which can be derived from this dataset. If you are interested in working with this dataset, I have uploaded this on kaggle link here (https://www.kaggle.com/shilpibhattacharyya/dataai-startups-dataset-from-angellist) -    kindly request access.
 
 
 
