@@ -42,7 +42,77 @@ plt.show()
 
 
 ![top_10_startup_markets](images/top_10_startup_markets.png)
-```Top 10 Startup Markets in Data/AI. We see SaaS is the leader followed by 'Big Data Analytics', 'Predictive Analytics' and 'IoT'.```
+Top 10 Startup Markets in Data/AI. We see SaaS is the leader followed by 'Big Data Analytics', 'Predictive Analytics' and 'IoT'.
 
 Similarly, I worked to find multiple attributes on these startups, for which you can find the donut charts as below.
+![num_employees_across_startups](images/num_employees_across_startups.png)
+Distribution of number of employees across startups. 'nan' indicates that number was not specified in the AngelList database for these companies.
+
+![10_cities_across_world_for_startups](images/10_cities_across_world_for_startups.png)
+Top 10 cities across the world for DS/AI startups, note 7 are in the USA with the exception of Berlin and London. 'nan' indicates that city was not specified in the AngelList database for these companies.
+
+![funds_distribution_across_startups](images/funds_distribution_across_startups.png)
+Distribution of funds raised across the startups. 'nan' indicates that funds raised was not specified in the AngelList database for these companies.
+
+![stages_distribution_startups](images/stages_distribution_startups.png)
+Distribution of the stages of the startup. As we see majority are in 'nan' stage, this indicates that stage was not specified in the AngelList database for these companies. Amongst the valid stages, most startups are in seed stage, which makes sense, as initially startups struggle to get funded.
+
+Post this, I thought of painting the startup across the globe for prior and post 2013 era. I used the following code for this. I downloaded 'continentsshp31.shp' from IGIS MAP (found by googling). Also, to plot this dataframe on the map, I needed longitude and latitude for each city, which I calculated using geopandas.
+
+```
+#install the following libraries
+# !pip3 install geopandas
+# !pip3 install descartes
+# !pip install geopy
+import matplotlib.pyplot as plt
+import geopandas
+from geopy.geocoders import Nominatim
+world = geopandas.read_file("continentsshp3147/continentsshp31.shp")
+geolocator = Nominatim(user_agent="ds")
+# code to retrieve latitude and longitude
+from geopy.extra.rate_limiter import RateLimiter
+# 1 - convenient function to delay between geocoding calls. I did this in groups of 100 as the service was getting timed out. Later, I combined all slices.
+geocode = RateLimiter(geolocator.geocode, min_delay_seconds=1)
+# 2- - create location column
+df_100=df[:100]
+df_100['location'] = df_100['Location'].apply(geocode)
+# 3 - create longitude, latitude, altitude from location column (returns tuple)
+df_100['point'] = df_100['location'].apply(lambda loc: tuple(loc.point) if loc else None)
+# 4 - split point column into latitude, longitude and altitude columns
+df_100[['latitude', 'longitude', 'altitude']] = pd.DataFrame(df_100['point'].tolist(), index=df_100.index)
+# combine the slices with latitude and longitude
+df_new = pd.concat([ df_100,df_101_200,df_201_300,df_301_400,df_401_497])
+df_new = df_new.sample(frac=1).reset_index(drop=True)
+df_new.head()
+```
+The resulting dataframe looks as below.
+
+![resulting_data_frame1](images/resulting_data_frame1.png)![resulting_data_frame2](images/resulting_data_frame2.png)
+
+The next step is to get the data in the geometrical format. The way to do this is to convert Pandas DataFrame into a geo-DataFrame, which needs parameters as the original DataFrame, coordinate reference system (CRS), and the geometry of the new DataFrame. In order to format the geometry appropriately, we need to convert the longitude and latitude into Points (we imported Point from shapely above), so let's pass the pandas dataframe and get the latitude and longitude using EPSG:4326 CRS.
+
+```
+from shapely.geometry import Point, Polygon
+crs={'init': 'epsg:4326'}
+geometry=[Point(xy) for xy in zip(df_new["longitude"],df_new["latitude"])]
+geo_df=gpd.GeoDataFrame(df_new,crs=crs,geometry=geometry)
+fig, ax = plt.subplots(figsize=(20, 20))
+world.plot(ax=ax,alpha=0.4,color='grey')
+geo_df[(geo_df['Joining_Year']).astype(str).astype(int)>2013].plot(ax=ax,markersize=20,color='green',marker="o",label="2014-2018")
+geo_df[(geo_df['Joining_Year']).astype(str).astype(int)<=2013].plot(ax=ax,markersize=20,color='red',marker="^",label="2010-2013")
+plt.legend(prop={'size':15})
+plt.title("Global distribution of DS/AI Startups joining AngelList before and after 2013")
+```
+The resulting plot looks as below. We see that (as on the right side in green) few startups sprung between 2014–2018 in the non-prime startup zones. Also, majority of the world looks devoid of an entrepreneurial mindset :). Startup culture is primarily centralized across United States, UK and few parts of Europe.
+
+![world_map_plot](images/world_map_plot.png)
+
+I also plotted another geopandas map to see the global distribution and density of funds raised.
+![world_map_plot_funds](images/world_map_plot_funds.png)
+
+There is a lot more insights, which can be derived from this dataset. If you are interested in working with this dataset, I have uploaded this on kaggle link here (https://www.kaggle.com/shilpibhattacharyya/dataai-startups-dataset-from-angellist) - kindly request access.
+
+
+
+
 
