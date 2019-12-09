@@ -42,4 +42,7 @@ plt.show()
 
 
 ![top_10_startup_markets](images/top_10_startup_markets.png)
-Top 10 Startup Markets in Data/AI. We see SaaS is the leader followed by 'Big Data Analytics', 'Predictive Analytics' and 'IoT'.
+```Top 10 Startup Markets in Data/AI. We see SaaS is the leader followed by 'Big Data Analytics', 'Predictive Analytics' and 'IoT'.```
+
+Similarly, I worked to find multiple attributes on these startups, for which you can find the donut charts as below.
+
