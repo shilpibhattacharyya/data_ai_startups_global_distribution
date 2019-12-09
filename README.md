@@ -87,7 +87,7 @@ df_new.head()
 ```
 The resulting dataframe looks as below.
 
-Solarized dark             |  Solarized Ocean                 
+---------------             |  -----------------                
 :-------------------------:|:-------------------------:
 ![](images/resulting_data_frame1.png)  |  ![](images/resulting_data_frame2.png)
 
